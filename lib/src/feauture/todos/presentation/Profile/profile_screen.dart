@@ -1,3 +1,8 @@
+// 8 ProfileScreen ist einfacher. Wir haben ihn in einen separaten folder gelegt,
+// 8 um die Übersichtlichkeit zu verbessern. Ein einfacher StatelessWidget,
+// 8 der nur Text und ein NetworkImage enthält.
+// 8 galery_screen.dart
+
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {

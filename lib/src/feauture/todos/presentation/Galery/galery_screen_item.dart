@@ -1,3 +1,10 @@
+// 10 Wir sehen, dass er einen Titel, eine URL, ein Datum und eine Beschreibung hat.
+// 10 Alle Bilder, die wir mit diesen Beschriftungen sehen,
+// 10 wo Bild und Text sind, befinden sich in gallery_screen.dart,
+// 10 und gallery_item ist jedes einzelne, z.B. dies ist das erste, das zweite, das dritte.
+// 10 Und wenn wir z.B. auf Bunter Basketball klicken,
+// 10 dann haben wir classe gallery_details_screen.dart.
+
 import 'package:flutter/material.dart';
 
 class GaleryScreenItem extends StatelessWidget {

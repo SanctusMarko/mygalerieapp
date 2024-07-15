@@ -1,3 +1,12 @@
+// 11 Zuerst sehen wir, dass in der AppBar "Details" steht
+// 11 und dann im Body über Argumente die URL, die den Link zu diesem Bild darstellt,
+// 11 den Titel, der diesen Titel darstellt,
+// 11 eine SizedBox, die einen Abstand schafft,
+// 11 das Datum, das dieses Datum ist,
+// 11 und das Argument Description, das eigentlich die Beschreibung von allem ist.
+// 11 Diese Argumente, die Description übernimmt,
+// 11 erhalten wir aus diesem Data-Ordner und der Item-Liste.
+
 import 'package:flutter/material.dart';
 
 class GaleryDetailScreen extends StatelessWidget {
@@ -25,12 +34,14 @@ class GaleryDetailScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(
-                  16.0), //Pomicanje rubova texta sa obje strane (radi preglednsoti)
+                  16.0), // Verschiebung der Textkanten auf beiden Seiten (zur besseren Übersichtlichkeit)
+
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    //Definicija naslova
+                    // Definition des Titels
+
                     arguments['title'],
                     style: const TextStyle(
                       fontSize: 24,
@@ -49,7 +60,7 @@ class GaleryDetailScreen extends StatelessWidget {
                   SizedBox(
                     height: 300,
                     child: Text(
-                      arguments['description'],
+                      arguments['description'], // Agument
                       style: const TextStyle(
                         fontSize: 16,
                       ),

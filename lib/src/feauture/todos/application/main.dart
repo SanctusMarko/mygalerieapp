@@ -12,10 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'MyApp',
-      home: const AppHome(), // Glavna stranica sa svim slikama
+      home:
+          const AppHome(), // 1 Wenn wir starten Er ruft die Klasse das AppHome auf, die Hauptseite mit allen Bildern
       routes: {
         '/details': (context) =>
-            const GaleryDetailScreen(), // Sranica sa detaljima za pojedinacnu sliku
+            const GaleryDetailScreen(), // Seite mit Details zu einem einzelnen Bild
       },
     );
   }

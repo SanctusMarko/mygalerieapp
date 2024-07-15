@@ -1,3 +1,7 @@
+// 9 GalleryScreen ist etwas komplexer.
+// 9 Er hat ein GridView mit 2 Spalten mit GalleryScreenItem.
+// 9 galery_screen_item.dart
+
 import 'package:flutter/material.dart';
 import 'package:mygalerieapp/src/feauture/todos/presentation/Galery/galery_screen_item.dart';
 import 'package:mygalerieapp/src/feauture/todos/data/item_list.dart';

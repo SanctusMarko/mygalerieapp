@@ -1,3 +1,5 @@
+// 12 Hier habe ich die Liste aller Galerie-Items definiert und von hier nehmen wir alle diese Daten.
+
 import 'package:mygalerieapp/src/feauture/todos/presentation/Galery/galery_item.dart';
 
 List<GaleryItem> item = [
