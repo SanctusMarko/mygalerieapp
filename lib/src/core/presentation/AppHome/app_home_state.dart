@@ -4,8 +4,8 @@
 // 3 Was im Body angezeigt wird, hängt davon ab, was wir unten in der BottomNavigationBar anklicken.
 
 import 'package:flutter/material.dart';
-import 'package:mygalerieapp/src/feauture/todos/presentation/AppHome/app_home.dart';
-import 'package:mygalerieapp/src/feauture/todos/presentation/Profile/profile_screen.dart';
+import 'package:mygalerieapp/src/core/presentation/AppHome/app_home.dart';
+import 'package:mygalerieapp/src/feauture/profile/presentation/profile_screen.dart';
 import 'package:mygalerieapp/src/feauture/todos/presentation/Galery/galery_screen.dart';
 
 class AppHomeState extends State<AppHome> {

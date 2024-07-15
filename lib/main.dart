@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mygalerieapp/src/feauture/todos/presentation/AppHome/app_home.dart';
+import 'package:mygalerieapp/src/core/presentation/AppHome/app_home.dart';
 import 'package:mygalerieapp/src/feauture/todos/presentation/Galery/galery_details_screen.dart';
 
 void main() {

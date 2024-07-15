@@ -18,13 +18,13 @@ class GaleryScreen extends StatelessWidget {
           crossAxisSpacing: 20.0,
           mainAxisSpacing: 20.0,
         ),
-        itemCount: item.length,
+        itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
-          final galeryItem = item[index];
+          final galeryItem = items[index];
           return GaleryScreenItem(
             title: galeryItem.title,
             url: galeryItem.url,
-            data: galeryItem.data,
+            data: galeryItem.date,
             description: galeryItem.description,
           );
         },
