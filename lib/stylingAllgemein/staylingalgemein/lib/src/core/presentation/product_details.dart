@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'dart:ui'; // Import za rad sa slikama i efektima kao što su zamućenje
+import 'package:flutter/material.dart'; // Import za Flutter materijalne komponente
 
-// Glavna klasa widgeta za prikaz detalja proizvoda
+// Definicija glavne klase za ekran detalja proizvoda
 class ProductDetailScreenNew extends StatefulWidget {
   const ProductDetailScreenNew({super.key});
 
@@ -8,14 +9,13 @@ class ProductDetailScreenNew extends StatefulWidget {
   _ProductDetailScreenState createState() => _ProductDetailScreenState();
 }
 
-// Klasa stanja widgeta ProductDetailScreenNew
+// Stanje za ekran detalja proizvoda
 class _ProductDetailScreenState extends State<ProductDetailScreenNew> {
-  // Početne vrijednosti za veličinu, količinu i cijenu
-  String selectedSize = 'Large';
-  int quantity = 1;
-  double price = 8.99;
+  String selectedSize = 'Large'; // Inicijalna veličina proizvoda
+  int quantity = 1; // Inicijalna količina proizvoda
+  double price = 8.99; // Inicijalna cena proizvoda
 
-  // Funkcija za ažuriranje cijene na temelju odabrane veličine
+  // Metoda za ažuriranje cene na osnovu odabrane veličine
   void updatePrice(String size) {
     setState(() {
       selectedSize = size;
@@ -29,14 +29,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreenNew> {
     });
   }
 
-  // Funkcija za povećanje količine
+  // Metoda za povećanje količine proizvoda
   void incrementQuantity() {
     setState(() {
       quantity++;
     });
   }
 
-  // Funkcija za smanjenje količine, ali ne ispod 1
+  // Metoda za smanjenje količine proizvoda
   void decrementQuantity() {
     if (quantity > 1) {
       setState(() {
@@ -47,7 +47,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreenNew> {
 
   @override
   Widget build(BuildContext context) {
-    // Prikaz modalnog prozora nakon prikaza widgeta
+    // Prikaz modala sa detaljima proizvoda kada se ekran učita
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showProductDetailModal(context);
     });
@@ -56,6 +56,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreenNew> {
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
+          // Pozadinska slika koja ispunjava ceo ekran
           Positioned.fill(
             child: Image.asset(
               'assets/bg_mainscreen.png',
@@ -67,7 +68,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreenNew> {
     );
   }
 
-  // Funkcija za prikaz modalnog prozora s detaljima proizvoda
+  // Metoda za prikaz modala sa detaljima proizvoda
   void _showProductDetailModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -83,8 +84,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreenNew> {
               expand: false,
               builder: (context, scrollController) {
                 return Stack(
+                  clipBehavior: Clip.none,
                   children: [
-                    // Pozadinski gradient za modalni prozor
+                    // Pozadina modala sa gradijentom
                     Positioned.fill(
                       child: Container(
                         decoration: const BoxDecoration(
@@ -99,248 +101,223 @@ class _ProductDetailScreenState extends State<ProductDetailScreenNew> {
                         ),
                       ),
                     ),
-                    // Slika i gumb za zatvaranje modalnog prozora
+                    // Slika proizvoda
                     Positioned(
                       top: -50,
                       left: 0,
                       right: 0,
                       child: Center(
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/cat_cupcakes_3D.png',
-                                  width: 150,
-                                  height: 150,
-                                  fit: BoxFit.contain,
-                                ),
-                                const SizedBox(
-                                    width: 160), // Razmak između slike i gumba
-                                GestureDetector(
-                                  onTap: () => Navigator.pop(context),
-                                  child: const CircleAvatar(
-                                    backgroundColor: Colors.red,
-                                    child:
-                                        Icon(Icons.close, color: Colors.white),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                        child: Image.asset(
+                          'assets/cat_cupcakes_3D.png',
+                          width: 150,
+                          height: 150,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),
-                    // Detalji proizvoda unutar modalnog prozora Mogli cup i ostalo cijela kartica koja je crne boje
+                    // Dugme za zatvaranje modala
                     Positioned(
-                      top: 150,
-                      left: 20,
-                      right: 20,
-                      child: Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.7),
-                          borderRadius: BorderRadius.circular(20),
+                      top: 20,
+                      right: 15,
+                      child: GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: const CircleAvatar(
+                          backgroundColor: Colors.red,
+                          child: Icon(Icons.close, color: Colors.white),
                         ),
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Mogli's Cup",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
+                      ),
+                    ),
+                    // Sadržaj modala
+                    Positioned(
+                      top: 175,
+                      left: 25,
+                      right: 25,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(35),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 18.0, sigmaY: 18.0),
+                          child: Container(
+                            padding: const EdgeInsets.fromLTRB(25, 16, 25, 16),
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.7),
+                              borderRadius: BorderRadius.circular(35),
+                              border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 193, 170, 218),
+                                  width: 0.2),
                             ),
-                            SizedBox(height: 10),
-                            Text(
-                              "Lorem ipsum dolor sit amet consectetur. Non feugiat imperdiet a vel sit at amet. Mi accumsan feugiat magna aliquam feugiat ac et. Pulvinar hendrerit id arcu at sed etiam semper mi hendrerit. Id aliquet quis quam.",
-                              style: TextStyle(
-                                color: Colors.white54,
-                                fontSize: 16,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 20),
-                            Text(
-                              'A 8.99',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 10),
-                            Divider(
-                              color: Colors.white54,
-                              thickness: 1,
-                            ),
-                            SizedBox(height: 10),
-                            // Prikaz sastojaka i recenzija
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                const Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    Text(
-                                      'Ingredients',
-                                      style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 14,
-                                      ),
+                                    Icon(
+                                      Icons.favorite_border,
+                                      color: Color.fromARGB(255, 166, 155, 151),
+                                      size: 15,
                                     ),
-                                    SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.cake,
-                                            color: Colors.white70, size: 16),
-                                        Icon(Icons.icecream,
-                                            color: Colors.white70, size: 16),
-                                        Icon(Icons.cookie,
-                                            color: Colors.white70, size: 16),
-                                      ],
+                                    Text(
+                                      " 200",
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          fontFamily: "Inter",
+                                          color: Color.fromARGB(
+                                              255, 166, 155, 151),
+                                          letterSpacing: -0.5,
+                                          fontWeight: FontWeight.w400),
                                     ),
                                   ],
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                const Text(
+                                  "Mogli's Cup",
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      letterSpacing: -0.5,
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.white),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Text(
+                                  "Lorem ipsum dolor sit amet consectetur. Non feugiat imperdiet a vel sit at amet. Mi accumsan feugiat magna aliquam feugiat ac et. Pulvinar hendrerit id arcu at sed etiam semper mi hendrerit. Id aliquet quis quam.",
+                                  style: TextStyle(
+                                      fontSize: 13, color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(
+                                  height: 19,
+                                ),
+                                const Text(
+                                  "₳ 8.99",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.white),
+                                ),
+                                const Divider(
+                                  color: Color.fromARGB(255, 91, 87, 82),
+                                  height: 40,
+                                ),
+                                const Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      'Reviews',
-                                      style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                    SizedBox(height: 10),
-                                    Row(
+                                    Column(
                                       children: [
-                                        Icon(Icons.star,
-                                            color: Colors.white, size: 16),
-                                        Icon(Icons.star,
-                                            color: Colors.white, size: 16),
-                                        Icon(Icons.star,
-                                            color: Colors.white, size: 16),
-                                        Icon(Icons.star,
-                                            color: Colors.white, size: 16),
-                                        Icon(Icons.star_border,
-                                            color: Colors.white, size: 16),
-                                        SizedBox(width: 5),
-                                        Text(
-                                          '4.0',
-                                          style: TextStyle(
-                                            color: Colors.white70,
-                                            fontSize: 14,
-                                          ),
+                                        Text('Ingredients',
+                                            style:
+                                                TextStyle(color: Colors.white)),
+                                        SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.cake,
+                                                color: Colors.white),
+                                            Icon(Icons.icecream,
+                                                color: Colors.white),
+                                            Icon(Icons.cookie,
+                                                color: Colors.white),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text('Reviews',
+                                            style:
+                                                TextStyle(color: Colors.white)),
+                                        SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.star,
+                                                color: Colors.white),
+                                            Icon(Icons.star,
+                                                color: Colors.white),
+                                            Icon(Icons.star,
+                                                color: Colors.white),
+                                            Icon(Icons.star,
+                                                color: Colors.white),
+                                            Icon(Icons.star_border,
+                                                color: Colors.white),
+                                            SizedBox(width: 5),
+                                            Text('4.0',
+                                                style: TextStyle(
+                                                    color: Colors.white)),
+                                          ],
                                         ),
                                       ],
                                     ),
                                   ],
                                 ),
+                                const SizedBox(height: 20),
+                                // Dugmići za odabir veličine proizvoda
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    buildSizeButton(context, 'Small',
+                                        selectedSize == 'Small', () {
+                                      updatePrice('Small');
+                                    }),
+                                    buildSizeButton(context, 'Medium',
+                                        selectedSize == 'Medium', () {
+                                      updatePrice('Medium');
+                                    }),
+                                    buildSizeButton(context, 'Large',
+                                        selectedSize == 'Large', () {
+                                      updatePrice('Large');
+                                    }),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                // Dugmići za podešavanje količine proizvoda
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    buildQuantityButton(context, Icons.remove,
+                                        decrementQuantity),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16.0),
+                                      child: Text(
+                                        quantity.toString(),
+                                        style: const TextStyle(
+                                            color: Colors.white, fontSize: 16),
+                                      ),
+                                    ),
+                                    buildQuantityButton(
+                                        context, Icons.add, incrementQuantity),
+                                  ],
+                                ),
                               ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
                     ),
-                    // Donji dio modalnog prozora za odabir veličine, količine i narudžbu
+                    // Dugme za dodavanje proizvoda u narudžbinu
                     Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Column(
-                        children: [
-                          // Gumbi za odabir veličine
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              buildSizeButton(
-                                  context, 'Small', selectedSize == 'Small',
-                                  () {
-                                updatePrice('Small');
-                              }),
-                              buildSizeButton(
-                                  context, 'Medium', selectedSize == 'Medium',
-                                  () {
-                                updatePrice('Medium');
-                              }),
-                              buildSizeButton(
-                                  context, 'Large', selectedSize == 'Large',
-                                  () {
-                                updatePrice('Large');
-                              }),
-                            ],
+                      bottom: 70,
+                      left: 21,
+                      right: 21,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.all(15),
+                          backgroundColor: Colors.pinkAccent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          const SizedBox(height: 10),
-                          // Gumbi za povećanje/smanjenje količine
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              buildQuantityButton(
-                                  context, Icons.remove, decrementQuantity),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: Text(
-                                  quantity.toString(),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                              buildQuantityButton(
-                                  context, Icons.add, incrementQuantity),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          // Gumb za dodavanje u narudžbu
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 12),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  gradient: const LinearGradient(
-                                    colors: [
-                                      Color.fromRGBO(233, 159, 167, 1),
-                                      Color.fromRGBO(208, 88, 182, 1),
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 12),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Add to order for A${(price * quantity).toStringAsFixed(2)}',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                        ],
+                        ),
+                        child: Text(
+                          "Add to order for ₳ ${(price * quantity).toStringAsFixed(2)}",
+                          style: const TextStyle(
+                              fontSize: 17, color: Colors.white),
+                        ),
                       ),
                     ),
                   ],
@@ -353,16 +330,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreenNew> {
     );
   }
 
-  // Funkcija za izradu gumba za veličinu
+  // Pomoćna metoda za kreiranje dugmeta za veličinu proizvoda
   Widget buildSizeButton(BuildContext context, String text, bool isSelected,
       VoidCallback onPressed) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 5, vertical: 5), // velicina dugmica small medium LArge
-        margin: const EdgeInsets.symmetric(
-            horizontal: 5), //small medium large razmak
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
           color: isSelected ? const Color(0xFF505050) : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
@@ -379,7 +354,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreenNew> {
     );
   }
 
-  // Funkcija za izradu gumba za količinu
+  // Pomoćna metoda za kreiranje dugmeta za količinu proizvoda
   Widget buildQuantityButton(
       BuildContext context, IconData icon, VoidCallback onPressed) {
     return Container(
