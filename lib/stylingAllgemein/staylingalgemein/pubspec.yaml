@@ -1,0 +1,38 @@
+name: snack_app
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/T2.png
+    - assets/Top_Card.png
+    - assets/Burger_3D.png
+    - assets/cat_cupcakes_3D.png
+    - assets/chick_cupcakes_3D.png
+    - assets/ice_cream_stick_3D.png
+    - assets/Ice.cream.png
+    - assets/Icecream_3D.png
+    - assets/star.png
+    - assets/bg_mainscreen.png
+    - assets/bg_startscreen.png
